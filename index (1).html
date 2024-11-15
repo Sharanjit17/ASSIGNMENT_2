@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>SCP Foundation</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+    <style>
+        /* Inline CSS for demonstration purposes */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        #scp-container {
+            padding: 20px;
+        }
+        article {
+            background: #fff;
+            border: 1px solid #ddd;
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+        
+
+        <!-- Menu -->
+       
+
+        <!-- Main -->
+        <div id="main">
+            <div class="inner">
+                <header>
+                    <h1>The Foundation is entrusted by governments around the world to capture and contain various unexplained paranormal phenomena that defy the known laws of nature.</h1>
+                    <p>“Make your choice, adventurous stranger; strike the bell and bide the danger. Or wonder, 'till it drives you mad, what would have followed if you had.”</p>
+                </header>
+
+                <!-- SCP Data Container -->
+                <div id="scp-container">
+                    <!-- SCP Data will be inserted here -->
+                </div>
+
+                <!-- Button to Read Descriptions -->
+                <button id="speak-button">Read Descriptions</button>
+            </div>
+        </div>
+
+       
+
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // SCP Data
+        const scpData = [
+            {
+                "subject": "SCP-002",
+                "class": "Euclid",
+                "summary": "SCP-002 is a large, spherical object that appears to be a small room. It is capable of generating furniture and objects based on the living humans present.",
+                "containment": "SCP-002 is to be kept in a standard containment chamber with no less than two armed guards on duty at all times."
+            },
+            {
+                "subject": "SCP-003",
+                "class": "Keter",
+                "summary": "SCP-003 is a sentient entity that can manipulate the emotions of individuals within a 10-meter radius.",
+                "containment": "SCP-003 must be contained in a soundproof, airtight chamber. Interaction is restricted to approved personnel only."
+            },
+            {
+                "subject": "SCP-004",
+                "class": "Keter",
+                "summary": "SCP-004 is a large, multi-limbed creature that exhibits high levels of aggression and unpredictable behavior.",
+                "containment": "SCP-004 is to be contained in a reinforced containment cell with a minimum of five layers of security."
+            },
+            {
+                "subject": "SCP-005",
+                "class": "Euclid",
+                "summary": "SCP-005 was an object that caused spontaneous combustion in organic matter within a radius of 5 meters.",
+                "containment": "SCP-005 should be kept in a fire-resistant containment box with an automated fire suppression system."
+            },
+            {
+                "subject": "SCP-006",
+                "class": "Safe",
+                "summary": "SCP-006 is an artifact that has shown potential for assisting in the containment of other SCPs.",
+                "containment": "SCP-006 is to be stored in a standard containment unit with restricted access."
+            }
+        ];
+
+        // Function to display SCP data
+        function displaySCPData() {
+            const container = document.getElementById('scp-container');
+            scpData.forEach(scp => {
+                const article = document.createElement('article');
+                article.innerHTML = `
+                    <h2>${scp.subject}</h2>
+                    <p><strong>Class:</strong> ${scp.class}</p>
+                    <p><strong>Summary:</strong> ${scp.summary}</p>
+                    <p><strong>Containment:</strong> ${scp.containment}</p>
+                `;
+                container.appendChild(article);
+            });
+        }
+
+        // Function to read SCP descriptions using Speech API
+        function speakDescriptions() {
+            if (!('speechSynthesis' in window)) {
+                alert('Speech synthesis is not supported by your browser.');
+                return;
+            }
+
+            const speech = new SpeechSynthesisUtterance();
+            scpData.forEach(scp => {
+                speech.text += `${scp.subject}: ${scp.summary} `;
+            });
+            
+            speech.onstart = () => console.log('Speech started');
+            speech.onerror = (event) => console.error('Speech synthesis error:', event);
+
+            window.speechSynthesis.speak(speech);
+        }
+
+        // Load and display SCP data when page is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            displaySCPData();
+
+            // Add event listener for the speech button
+            document.getElementById('speak-button').addEventListener('click', speakDescriptions);
+        });
+    </script>
+</body>
+</html>
